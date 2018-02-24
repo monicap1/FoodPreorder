@@ -3,7 +3,10 @@ package com.example.monic.foodpre;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.google.firebase.database.DataSnapshot;
@@ -12,10 +15,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.example.monic.foodpre.R.id.spinner;
+
 public class Selection extends AppCompatActivity {
 
     Spinner s;
-    String[] a;
+    String[] KFC;
+    String[] Menu;
     int i=0;
 
     @Override
@@ -26,40 +35,41 @@ public class Selection extends AppCompatActivity {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("Resturants");
-        a=new String[10];
-        Spinner productname_spinner =(Spinner) findViewById(R.id.s);
+        KFC=new String[10];
+        Spinner productname_spinner =(Spinner) findViewById(R.id.category);
 
-        productname_spinner.setOnItemSelectedListener(
-                new AdapterView.OnItemSelectedListener() {
-                    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 
-                        Object item = parent.getItemAtPosition(pos);
-                        System.out.println(item.toString());     //prints the text in spinner item.
 
-                    }
-                    public void onNothingSelected(AdapterView<?> parent) {
-                    }
-                });
-
-        myRef.addValueEventListener(new ValueEventListener() {
+            myRef.child("Resturants").child("KFC").child("Menu").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
-                    a[i]=snapshot.getKey();i++;
+            public void onDataChange(DataSnapshot datasnapshot) {
+
+                final List<String> KFC = new ArrayList<String>();
                 }
-                Log.d("retieval", "Value is: " );
-            }
+                for(DataSnapshot areasnapshot:datasnapshot.getChildren())
+                {
+                    String KFC = areasnapshot.getValue(String.class);
+                    KFC.add(KFC);
 
-            @Override
+                }
+                                                                                                }
+
+                    ArrayAdapter<String> ArrayAdapter = new ArrayAdapter<String>(Selection.this, android.R.layout.simple_spinner_item,KFC);
+        ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(skularAdapter);
+    }
+                Log.d("retieval", "Value is: " );
+
+
+
             public void onCancelled(DatabaseError error) {
                 // Failed to read value
                 Log.w("retrieval", "Failed to read value.", error.toException());
             }
         });
-        Adapter adapter=new
-        s.setAdapter();
 
 
 
-    }
-}
+
+
+
