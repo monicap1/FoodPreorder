@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "407755296516",
+    "firebase_url": "https://foodpre-16e0a.firebaseio.com",
+    "project_id": "foodpre-16e0a",
+    "storage_bucket": "foodpre-16e0a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:407755296516:android:e088b9df7865d0ad",
+        "android_client_info": {
+          "package_name": "com.example.monic.foodpre"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "407755296516-ektr8h02f3iflkrcv77bo4p3kd3po2re.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.monic.foodpre",
+            "certificate_hash": "fc377079e976eddca8a18cab151d7382f03a5af4"
+          }
+        },
+        {
+          "client_id": "407755296516-k3j87rk2vq07b47i92a5360cm0okncd1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFw6Vn2br9_ayfCxpL2WIs94zNQ_9Ekcc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "407755296516-k3j87rk2vq07b47i92a5360cm0okncd1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
