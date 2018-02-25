@@ -1,12 +1,9 @@
 package com.example.monic.foodpre;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
-import android.widget.Spinner;
-import android.widget.ArrayAdapter;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -17,9 +14,10 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Main2Activity extends AppCompatActivity {
     TextView a,b,c;
+    String one,two,three;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("Resturants");
+    DatabaseReference myRef = database.getReference("Resturants").child(Selection.shop).child("Menu:");
 
 
     @Override
@@ -39,11 +37,12 @@ public class Main2Activity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                String value2= dataSnapshot.child("a").child("b").getValue(String.class);
-                String value1= dataSnapshot.child("a").child("c").getValue(String.class);
-                b.setText(value2);
-                c.setText(value1);
-                Log.d("retieval", "Value is: " + value2);
+                for (DataSnapshot s:dataSnapshot.getChildren()){
+                    a.setText(a + "," + s.getKey());
+                }
+
+
+                Log.d("retieval", "Value is: " + "null");
             }
 
             @Override

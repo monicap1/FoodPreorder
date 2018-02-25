@@ -1,12 +1,12 @@
 package com.example.monic.foodpre;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 
 import com.google.firebase.database.DataSnapshot;
@@ -18,56 +18,68 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.monic.foodpre.R.id.spinner;
+public class Selection extends AppCompatActivity implements View.OnClickListener {
 
-public class Selection extends AppCompatActivity {
+    Spinner productname_spinner;
+    Button selection;
+    ArrayAdapter<String> arrayAdapter;
 
-    Spinner s;
-    String[] KFC;
-    String[] Menu;
-    int i=0;
+    static String shop;//for storing selected shop
+
+    List<String> shop_list = new ArrayList<String>();//for storing the shop list
+
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference("Resturants");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selection);
-        s=(Spinner)findViewById(R.id.category);
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Resturants");
-        KFC=new String[10];
-        Spinner productname_spinner =(Spinner) findViewById(R.id.category);
 
 
+        productname_spinner = (Spinner) findViewById(R.id.category);
+        selection=(Button)findViewById(R.id.select_button);
 
-            myRef.child("Resturants").child("KFC").child("Menu").addListenerForSingleValueEvent(new ValueEventListener() {
+
+        myRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot datasnapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
-                final List<String> KFC = new ArrayList<String>();
+                for (DataSnapshot areasnapshot : dataSnapshot.getChildren()) {
+                    shop_list.add(areasnapshot.getKey());//getting every shops and storing it in an array
                 }
-                for(DataSnapshot areasnapshot:datasnapshot.getChildren())
-                {
-                    String KFC = areasnapshot.getValue(String.class);
-                    KFC.add(KFC);
+                arrayAdapter = new ArrayAdapter<String>(Selection.this, android.R.layout.simple_spinner_item, shop_list);
+                arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                productname_spinner.setAdapter(arrayAdapter);//setting the array into spinner
+            }
 
-                }
-                                                                                                }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-                    ArrayAdapter<String> ArrayAdapter = new ArrayAdapter<String>(Selection.this, android.R.layout.simple_spinner_item,KFC);
-        ArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(skularAdapter);
-    }
-                Log.d("retieval", "Value is: " );
-
-
-
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w("retrieval", "Failed to read value.", error.toException());
             }
         });
 
+        selection.setOnClickListener(this);
+
+        /*spinner listener*/
+        productname_spinner.setOnItemSelectedListener(
+                new AdapterView.OnItemSelectedListener() {
+                    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+
+                        shop=productname_spinner.getSelectedItem().toString();//storimg selected item
+
+                    }
+                    public void onNothingSelected(AdapterView<?> parent) {
+                    }
+                });
+
+    }
+    public void onClick(View v){
+        if(v==selection){
+            startActivity(new Intent(Selection.this,Main2Activity.class));
+        }
+    }
+}
 
 
 

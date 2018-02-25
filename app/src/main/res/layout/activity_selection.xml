@@ -17,4 +17,14 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="147dp"
         android:id="@+id/category" />
+
+    <Button
+        android:id="@+id/select_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/category"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="125dp"
+        android:text="Select" />
+
 </RelativeLayout>
