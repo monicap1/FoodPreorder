@@ -8,15 +8,17 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.monic.foodpre.Selection">
+    tools:context="com.example.monic.foodpre.Selection"
+    android:background="@drawable/backg">
 
     <Spinner
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="147dp"
-        android:id="@+id/category" />
+        android:id="@+id/category"
+        android:background="@color/colorPrimary" />
 
     <Button
         android:id="@+id/select_button"
